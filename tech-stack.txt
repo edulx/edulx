@@ -1,0 +1,8 @@
+Main Tech Stack
+Streamlit – Frontend & app UI
+
+Google Sheets API – Backend database (each student has their own sheet)
+
+Google Drive API – For document uploads
+
+Google OAuth2 – For authenticating admin & user access
