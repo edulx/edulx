@@ -2,9 +2,10 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 import io
+import streamlit as st
 
 SCOPES = ["https://www.googleapis.com/auth/drive"]
-CREDS = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
+creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"])
 drive_service = build("drive", "v3", credentials=CREDS)
 
 def upload_file_to_drive(uploaded_file, folder_id):
