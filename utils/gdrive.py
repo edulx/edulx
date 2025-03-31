@@ -1,11 +1,12 @@
+import io
+import streamlit as st
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
-import io
-import streamlit as st
 
+# Use credentials from Streamlit secrets
 SCOPES = ["https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"])
+CREDS = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
 drive_service = build("drive", "v3", credentials=CREDS)
 
 def upload_file_to_drive(uploaded_file, folder_id):
@@ -23,7 +24,7 @@ def upload_file_to_drive(uploaded_file, folder_id):
 
     # Make file public
     drive_service.permissions().create(
-        fileId=file.get("id"),
+        fileId=file["id"],
         body={"type": "anyone", "role": "reader"},
     ).execute()
 
