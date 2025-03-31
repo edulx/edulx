@@ -1,6 +1,7 @@
 
 import gspread
 import pandas as pd
+import streamlit as st
 from google.oauth2.service_account import Credentials
 
 # Scopes and credentials
@@ -8,7 +9,7 @@ SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-CREDS = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
+creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"])
 client = gspread.authorize(CREDS)
 
 def get_worksheet_df(sheet_url, tab_name):
